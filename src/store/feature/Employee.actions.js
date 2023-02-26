@@ -1,6 +1,10 @@
 import { createAction } from "@reduxjs/toolkit";
 
-const getEmployees = createAction("data/getEmployees");
+const getEmployees = createAction("data/getEmployees", (data) => ({
+  payload: {
+    data,
+  },
+}));
 
 const deleteEmployees = createAction("data/deleteEmployees");
 
