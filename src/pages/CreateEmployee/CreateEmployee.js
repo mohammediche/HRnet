@@ -3,12 +3,15 @@ import { useDispatch } from "react-redux";
 import "./style.css";
 import { BsFillPeopleFill } from "react-icons/bs";
 import DropDown from "../../components/DropDown";
-import { StateNames } from "../../data/States";
+import { States } from "../../data/States";
 import { Departements } from "../../data/Departements";
-import DataPicker from "../../components/DataPicker";
+import DatePicker from "../../components/DatePicker";
+import { getEmployees } from "../../store/feature/Employee.actions";
+import { useNavigate } from "react-router-dom";
 
 const CreateEmployee = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [employeeDetails, setEmployeeDetails] = useState({
     firstName: "",
     lastName: "",
@@ -21,26 +24,36 @@ const CreateEmployee = () => {
     department: "",
   });
 
-  // passer cette fonction en props sur DataPicker et les 2 DropDown avec les states necessaire !!!
+  // passer cette fonction en props sur DatePicker et les 2 DropDown avec les states necessaire !!!
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEmployeeDetails((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    if (name === "zipCode") {
+      setEmployeeDetails((prevState) => ({
+        ...prevState,
+        [name]: parseInt(value),
+      }));
+    } else {
+      setEmployeeDetails((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
 
-  const handleSubmit = () => {
-    dispatch(employeeDetails);
-    alert("Employee Created!");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(getEmployees(employeeDetails));
+    navigate("/employee-list");
+    // alert("Employee Created!");
     // Une fois que j'aurais crée la modal en librairie, je l'affiche ici à la place de alert
   };
+
   return (
     <div>
       <header className="title">
         <h1>HRnet</h1>
       </header>
-      <a href="/employee-list" className="navigate_To_EmployeeList">
+      <a href="/employee-list" className="navigate">
         View Current Employees
         <BsFillPeopleFill />
       </a>
@@ -53,19 +66,19 @@ const CreateEmployee = () => {
           <hr className="hr_mini" />
           <div className="form-group">
             <label htmlFor="firstName">First Name :</label>
-            <input type="text" id="name" name="firstName" required onChange={handleInputChange} />
+            <input type="text" id="name" name="firstName" onChange={handleInputChange} />
           </div>
 
           <div className="form-group">
-            <label htmlFor="last-name">Last Name :</label>
-            <input type="text" id="last-name" name="last-name" required onChange={handleInputChange} />
+            <label htmlFor="lastName">Last Name :</label>
+            <input type="text" id="lastName" name="lastName" onChange={handleInputChange} />
           </div>
 
-          <DataPicker />
+          <DatePicker />
 
           <div className="form-group">
-            <label htmlFor="start-date">Start Date</label>
-            <input type="text" id="start-date" name="start-date" required onChange={handleInputChange} />
+            <label htmlFor="startDate">Start Date</label>
+            <input type="text" id="startDate" name="startDate" onChange={handleInputChange} />
           </div>
 
           <h3 className="form_titlesH3">Contact information</h3>
@@ -73,29 +86,28 @@ const CreateEmployee = () => {
 
           <div className="form-group">
             <label htmlFor="street">Street</label>
-            <input type="text" id="street" name="street" required onChange={handleInputChange} />
+            <input type="text" id="street" name="street" onChange={handleInputChange} />
           </div>
 
           <div className="form-group">
             <label htmlFor="city">City</label>
-            <input type="text" id="city" name="city" required onChange={handleInputChange} />
+            <input type="text" id="city" name="city" onChange={handleInputChange} />
           </div>
-
-          <DropDown data={StateNames} name="State" />
 
           <div className="form-group">
-            <label htmlFor="zip-code">Zip Code</label>
-            <input
-              type="number"
-              id="zip-code"
-              name="zip-code"
-              className="field_Style"
-              required
-              onChange={handleInputChange}
-            />
+            <label htmlFor={"state"}>State</label>
+            <DropDown data={States} name="state" handleInputChange={handleInputChange} />
           </div>
 
-          <DropDown data={Departements} name="Department" />
+          <div className="form-group">
+            <label htmlFor="zipCode">Zip Code</label>
+            <input type="number" id="zipCode" name="zipCode" className="field_Style" onChange={handleInputChange} />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor={"department"}>Department</label>
+            <DropDown data={Departements} name="department" handleInputChange={handleInputChange} />
+          </div>
 
           <div className="div-submit">
             <button type="submit" className="btn-submit">

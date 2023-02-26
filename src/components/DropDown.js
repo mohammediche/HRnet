@@ -1,19 +1,17 @@
-import React from "react";
-
-const DropDown = ({ data, name }) => {
+const DropDown = ({ data, name, handleInputChange }) => {
   return (
-    <div className="form-group">
-      <label htmlFor={name}>{name}</label>
-      <select name={name} id={name} className="field_Style">
-        {data.map((val, key) => {
-          return (
-            <option value={val} key={key}>
-              {val}
-            </option>
-          );
-        })}
-      </select>
-    </div>
+    <select name={name} id={name} className="field_Style" onChange={handleInputChange}>
+      <option value="" className="default_option">
+        Please choose a {name}
+      </option>
+      {data.map((val, key) => {
+        return (
+          <option value={val.name} key={key}>
+            {val.name}
+          </option>
+        );
+      })}
+    </select>
   );
 };
 

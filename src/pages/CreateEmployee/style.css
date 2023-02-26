@@ -65,14 +65,14 @@ textarea:focus {
 }
 
 /**************************/
-  .navigate_To_EmployeeList{
+  .navigate{
     display: block;
     text-align: center;
     font-size: 18px;
     width: 300px;
     margin: auto;
   }
-  .navigate_To_EmployeeList svg{
+  .navigate svg{
     font-size: 25px;
     margin-bottom: -5px;
     margin-left: 10px;
