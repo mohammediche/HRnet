@@ -1,29 +1,84 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { RiArrowUpDownLine } from "react-icons/ri";
 
 const Table = () => {
   const employees = useSelector((state) => state.employee);
+  const tableSteps = useSelector((state) => state.step);
   const test = useSelector((state) => state.employee);
   console.log("test récup data", test);
+  console.log("step=>", tableSteps);
+
+  const pageSize = 10; // nombre d'éléments par page
+
+  // extraire les éléments de la page actuelle
+  const debut = (tableSteps - 1) * pageSize;
+  const fin = debut + pageSize;
+  const elementsAAfficher = employees.slice(debut, fin);
 
   return (
     <>
       <table className="table">
         <thead>
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Start Date</th>
-            <th>Department</th>
-            <th>BirthDate</th>
-            <th>Street</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip Code</th>
+            <th>
+              <button className="filter_table_button">
+                First Name
+                <RiArrowUpDownLine className="arrows_icon" />
+              </button>
+            </th>
+            <th>
+              <button className="filter_table_button">
+                Last Name
+                <RiArrowUpDownLine className="arrows_icon" />
+              </button>
+            </th>
+            <th>
+              <button className="filter_table_button">
+                Start Date
+                <RiArrowUpDownLine className="arrows_icon" />
+              </button>
+            </th>
+            <th>
+              <button className="filter_table_button">
+                Department
+                <RiArrowUpDownLine className="arrows_icon" />
+              </button>
+            </th>
+            <th>
+              <button className="filter_table_button">
+                BirthDate
+                <RiArrowUpDownLine className="arrows_icon" />
+              </button>
+            </th>
+            <th>
+              <button className="filter_table_button">
+                Street
+                <RiArrowUpDownLine className="arrows_icon" />
+              </button>
+            </th>
+            <th>
+              <button className="filter_table_button">
+                City
+                <RiArrowUpDownLine className="arrows_icon" />
+              </button>
+            </th>
+            <th>
+              <button className="filter_table_button">
+                State
+                <RiArrowUpDownLine className="arrows_icon" />
+              </button>
+            </th>
+            <th>
+              <button className="filter_table_button">
+                Zip Code
+                <RiArrowUpDownLine className="arrows_icon" />
+              </button>
+            </th>
           </tr>
         </thead>
         <tbody>
-          {employees.map((val, key) => {
+          {elementsAAfficher.map((val, key) => {
             return (
               <tr key={key}>
                 <td>{val.firstName}</td>

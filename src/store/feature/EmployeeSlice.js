@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { deleteEmployees, getEmployees } from "./Employee.actions";
+import { deleteEmployees, getEmployees, nextStep, prevStep } from "./Employee.actions";
 
 // const employeeDetails = {
 //   FirstName: "",
@@ -14,6 +14,7 @@ import { deleteEmployees, getEmployees } from "./Employee.actions";
 // };
 const initialState = {
   employee: [],
+  step: 1,
 };
 
 const EmployeeSlice = createReducer(initialState, (builder) => {
@@ -21,6 +22,12 @@ const EmployeeSlice = createReducer(initialState, (builder) => {
     .addCase(getEmployees, (state, action) => {
       state.employee = [...state.employee, action.payload.data];
       console.log(action);
+    })
+    .addCase(nextStep, (state, action) => {
+      state.step += 1;
+    })
+    .addCase(prevStep, (state, action) => {
+      state.step--;
     })
     .addCase(deleteEmployees, (state, action) => {
       state.employee = null;

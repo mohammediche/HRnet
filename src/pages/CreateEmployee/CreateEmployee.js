@@ -14,11 +14,15 @@ const CreateEmployee = () => {
   const [employeeDetails, setEmployeeDetails] = useState({
     firstName: "",
     lastName: "",
-    birthdate: "",
+    birthDate: "",
     startDate: "",
     street: "",
     city: "",
     state: "",
+    // state: {
+    //   name: "",
+    //   abbrev: "",
+    // },
     zipCode: 0,
     department: "",
   });
@@ -27,6 +31,7 @@ const CreateEmployee = () => {
   // passer cette fonction en props sur DatePicker et les 2 DropDown avec les states necessaire !!!
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
     if (name === "zipCode") {
       setEmployeeDetails((prevState) => ({
         ...prevState,
@@ -42,7 +47,9 @@ const CreateEmployee = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(employeeDetails);
     dispatch(getEmployees(employeeDetails));
+    // navigate("/employee-list");
     // alert("Employee Created!");
     setHandleModal(true);
   };
@@ -68,7 +75,7 @@ const CreateEmployee = () => {
           <hr className="hr_mini" />
           <div className="form-group">
             <label htmlFor="firstName">First Name :</label>
-            <input type="text" id="name" name="firstName" onChange={handleInputChange} />
+            <input type="text" id="firstName" name="firstName" onChange={handleInputChange} />
           </div>
 
           <div className="form-group">
@@ -76,12 +83,14 @@ const CreateEmployee = () => {
             <input type="text" id="lastName" name="lastName" onChange={handleInputChange} />
           </div>
 
-          <DatePicker />
+          <section className="center_div_input">
+            <DatePicker handleInputChange={handleInputChange} />
 
-          <div className="form-group">
-            <label htmlFor="startDate">Start Date</label>
-            <input type="text" id="startDate" name="startDate" onChange={handleInputChange} />
-          </div>
+            <div className="form-group">
+              <label htmlFor="startDate">Start Date</label>
+              <input type="date" id="startDate" name="startDate" onChange={handleInputChange} />
+            </div>
+          </section>
 
           <h3 className="form_titlesH3">Contact information</h3>
           <hr className="hr_mini" />
@@ -96,20 +105,22 @@ const CreateEmployee = () => {
             <input type="text" id="city" name="city" onChange={handleInputChange} />
           </div>
 
-          <div className="form-group">
-            <label htmlFor={"state"}>State</label>
-            <DropDown data={States} name="state" handleInputChange={handleInputChange} />
-          </div>
+          <section className="center_div_input">
+            <div className="form-group">
+              <label htmlFor="zipCode">Zip Code</label>
+              <input type="number" id="zipCode" name="zipCode" className="field_Style" onChange={handleInputChange} />
+            </div>
 
-          <div className="form-group">
-            <label htmlFor="zipCode">Zip Code</label>
-            <input type="number" id="zipCode" name="zipCode" className="field_Style" onChange={handleInputChange} />
-          </div>
+            <div className="form-group">
+              <label htmlFor="state">State</label>
+              <DropDown data={States} name="state" handleInputChange={handleInputChange} />
+            </div>
 
-          <div className="form-group">
-            <label htmlFor={"department"}>Department</label>
-            <DropDown data={Departements} name="department" handleInputChange={handleInputChange} />
-          </div>
+            <div className="form-group">
+              <label htmlFor={"department"}>Department</label>
+              <DropDown data={Departements} name="department" handleInputChange={handleInputChange} />
+            </div>
+          </section>
 
           <div className="div-submit">
             <button type="submit" className="btn-submit">
