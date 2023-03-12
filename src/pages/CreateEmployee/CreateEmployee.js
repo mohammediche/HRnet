@@ -7,11 +7,10 @@ import { States } from "../../data/States";
 import { Departements } from "../../data/Departements";
 import DatePicker from "../../components/DatePicker";
 import { getEmployees } from "../../store/feature/Employee.actions";
-import { useNavigate } from "react-router-dom";
+import Modal from "../../components/Modal";
 
 const CreateEmployee = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [employeeDetails, setEmployeeDetails] = useState({
     firstName: "",
     lastName: "",
@@ -23,6 +22,7 @@ const CreateEmployee = () => {
     zipCode: 0,
     department: "",
   });
+  const [handleModal, setHandleModal] = useState(false);
 
   // passer cette fonction en props sur DatePicker et les 2 DropDown avec les states necessaire !!!
   const handleInputChange = (e) => {
@@ -43,9 +43,11 @@ const CreateEmployee = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(getEmployees(employeeDetails));
-    navigate("/employee-list");
     // alert("Employee Created!");
-    // Une fois que j'aurais crée la modal en librairie, je l'affiche ici à la place de alert
+    setHandleModal(true);
+  };
+  const closeModal = () => {
+    setHandleModal(false);
   };
 
   return (
@@ -53,7 +55,7 @@ const CreateEmployee = () => {
       <header className="title">
         <h1>HRnet</h1>
       </header>
-      <a href="/employee-list" className="navigate">
+      <a href="/employee-list" className="navigate_To_EmployeeList">
         View Current Employees
         <BsFillPeopleFill />
       </a>
@@ -116,6 +118,11 @@ const CreateEmployee = () => {
           </div>
         </form>
       </main>
+      {handleModal && (
+        <div className="container_modal">
+          <Modal closeModal={closeModal} />
+        </div>
+      )}
       {/* <div id="confirmation" className="modal">Employee Created!</div> */}
     </div>
   );
