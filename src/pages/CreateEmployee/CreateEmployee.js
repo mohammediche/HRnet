@@ -32,25 +32,32 @@ const CreateEmployee = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "zipCode") {
-      setEmployeeDetails((prevState) => ({
-        ...prevState,
-        [name]: parseInt(value),
-      }));
-    } else {
-      setEmployeeDetails((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
-    }
+    setEmployeeDetails((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  const handleInputChangeNumber = (e) => {
+    const { name, value } = e.target;
+    setEmployeeDetails((prevState) => ({
+      ...prevState,
+      [name]: parseInt(value),
+    }));
+  };
+  const handleInputChangeDate = (e) => {
+    const { name, value } = e.target;
+    const dateSplit = value.split("-");
+    const newFormat_Date = `${dateSplit[2]}/${dateSplit[1]}/${dateSplit[0]}`;
+
+    setEmployeeDetails((prevState) => ({
+      ...prevState,
+      [name]: newFormat_Date,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(employeeDetails);
     dispatch(getEmployees(employeeDetails));
-    // navigate("/employee-list");
-    // alert("Employee Created!");
     setHandleModal(true);
   };
   const closeModal = () => {
@@ -84,11 +91,11 @@ const CreateEmployee = () => {
           </div>
 
           <section className="center_div_input">
-            <DatePicker handleInputChange={handleInputChange} />
+            <DatePicker handleInputChangeDate={handleInputChangeDate} />
 
             <div className="form-group">
               <label htmlFor="startDate">Start Date</label>
-              <input type="date" id="startDate" name="startDate" onChange={handleInputChange} />
+              <input type="date" id="startDate" name="startDate" onChange={handleInputChangeDate} />
             </div>
           </section>
 
@@ -108,7 +115,13 @@ const CreateEmployee = () => {
           <section className="center_div_input">
             <div className="form-group">
               <label htmlFor="zipCode">Zip Code</label>
-              <input type="number" id="zipCode" name="zipCode" className="field_Style" onChange={handleInputChange} />
+              <input
+                type="number"
+                id="zipCode"
+                name="zipCode"
+                className="field_Style"
+                onChange={handleInputChangeNumber}
+              />
             </div>
 
             <div className="form-group">

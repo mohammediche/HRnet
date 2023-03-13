@@ -6,7 +6,7 @@ const DropDown = ({ data, name, handleInputChange }) => {
       </option>
       {data.map((val, key) => {
         return (
-          <option value={val.name} key={key}>
+          <option value={val.value} key={key}>
             {val.name}
           </option>
         );

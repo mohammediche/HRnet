@@ -5,16 +5,13 @@ import { RiArrowUpDownLine } from "react-icons/ri";
 const Table = () => {
   const employees = useSelector((state) => state.employee);
   const tableSteps = useSelector((state) => state.step);
-  const test = useSelector((state) => state.employee);
-  console.log("test récup data", test);
-  console.log("step=>", tableSteps);
 
   const pageSize = 10; // nombre d'éléments par page
 
   // extraire les éléments de la page actuelle
   const debut = (tableSteps - 1) * pageSize;
   const fin = debut + pageSize;
-  const elementsAAfficher = employees.slice(debut, fin);
+  const employeesAAfficher = employees.slice(debut, fin);
 
   return (
     <>
@@ -78,7 +75,7 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {elementsAAfficher.map((val, key) => {
+          {employeesAAfficher.map((val, key) => {
             return (
               <tr key={key}>
                 <td>{val.firstName}</td>

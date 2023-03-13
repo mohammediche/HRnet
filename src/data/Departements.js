@@ -1,9 +1,9 @@
 export const Departements = [
-  { name: "Sales" },
-  { name: "Marketing" },
-  { name: "Engineering" },
-  { name: "Human Resources" },
-  { name: "Legal" },
+  { name: "Sales", value: "Sales" },
+  { name: "Marketing", value: "Marketing" },
+  { name: "Engineering", value: "Engineering" },
+  { name: "Human Resources", value: "HumanRessources" },
+  { name: "Legal", value: "Legal" },
 ];
 
 // export const Departements = ["Sales", "Marketing", "Engineering", "Human Resources", "Legal"];
