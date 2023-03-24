@@ -16,6 +16,10 @@ const prevStep = createAction("data/prevStep", (step) => ({
   },
 }));
 
-const deleteEmployees = createAction("data/deleteEmployees");
+const updateEmployeesList = createAction("data/updateEmployeesList", (data) => ({
+  payload: {
+    data,
+  },
+}));
 
-export { getEmployees, nextStep, prevStep, deleteEmployees };
+export { getEmployees, nextStep, prevStep, updateEmployeesList };

@@ -39,3 +39,23 @@ tr:nth-child(odd) td {
     color: gray;
     transition: 200ms;
 }
+/****** Search *******/
+.search_data_table{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+.search_input{
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    font-size: 1rem;
+}
+.search_input:focus,
+.search_input:focus-visible{
+    border: none;
+    outline: none;
+    box-shadow: 0 3px 8px rgb(184 211 241);
+}
