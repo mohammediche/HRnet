@@ -44,16 +44,6 @@ const CreateEmployee = () => {
       [name]: parseInt(value),
     }));
   };
-  const handleInputChangeDate = (e) => {
-    const { name, value } = e.target;
-    const dateSplit = value.split("-");
-    const newFormat_Date = `${dateSplit[2]}/${dateSplit[1]}/${dateSplit[0]}`;
-
-    setEmployeeDetails((prevState) => ({
-      ...prevState,
-      [name]: newFormat_Date,
-    }));
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -91,11 +81,11 @@ const CreateEmployee = () => {
           </div>
 
           <section className="center_div_input">
-            <DatePicker handleInputChangeDate={handleInputChangeDate} />
+            <DatePicker handleInputChange={handleInputChange} />
 
             <div className="form-group">
               <label htmlFor="startDate">Start Date</label>
-              <input type="date" id="startDate" name="startDate" onChange={handleInputChangeDate} />
+              <input type="date" id="startDate" name="startDate" onChange={handleInputChange} />
             </div>
           </section>
 

@@ -10,7 +10,7 @@ const EmployeeList = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const employees = useSelector((state) => state.employee);
-  const filteredDataOnSearch = employees.filter((item) => {
+  const filteredEmployees = employees.filter((item) => {
     // Vérifier si la valeur de recherche correspond à l'une des valeurs de chaque élément du tableau
     /* On filtre le tableau,
      * on utilise Object.values pour récupérer seulement les valeur des objets
@@ -35,10 +35,9 @@ const EmployeeList = () => {
       </a>
       <main className="container greater_width">
         <Search handleSearch={handleSearch} />
-        <Table filteredDataOnSearch={filteredDataOnSearch} />
+        <Table filteredEmployees={filteredEmployees} />
         <PrevNextButtons />
       </main>
-      {/* <div id="confirmation" className="modal">Employee Created!</div> */}
     </div>
   );
 };

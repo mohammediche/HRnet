@@ -1,12 +1,8 @@
 import React, { useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateEmployeesList } from "../../store/feature/Employee.actions";
 import TableHeader from "./TableHeader";
 
-const Table = ({ filteredDataOnSearch }) => {
+const Table = ({ filteredEmployees }) => {
   const keyRef = useRef("");
-  const dispatch = useDispatch();
-  const employees = useSelector((state) => state.employee);
   const [handleTrie, setHandleTrie] = useState(false);
 
   //const tableSteps = useSelector((state) => state.step);
@@ -25,19 +21,16 @@ const Table = ({ filteredDataOnSearch }) => {
   const compareValues = (a, b) => {
     let nameA;
     let nameB;
-    if (Date.parse(a[keyRef.current])) {
-      const dateASplit = a[keyRef.current].split("/");
-      const dateBSplit = b[keyRef.current].split("/");
-      nameA = `${dateASplit[2]}-${dateASplit[1]}-${dateASplit[0]}`.toUpperCase();
-      nameB = `${dateBSplit[2]}-${dateBSplit[1]}-${dateBSplit[0]}`.toUpperCase();
+
+    if (typeof a[keyRef.current] === "string" && Date.parse(a[keyRef.current])) {
+      nameA = new Date(a[keyRef.current]).getTime();
+      nameB = new Date(b[keyRef.current]).getTime();
     } else {
+      // console.log("not");
       nameA = `${a[keyRef.current]}`.toUpperCase();
       nameB = `${b[keyRef.current]}`.toUpperCase();
     }
     setHandleTrie(!handleTrie);
-
-    console.log("newFormat_DateA=>>>>>", nameA);
-    console.log("newFormat_DateB=><<<", nameA);
 
     if (nameA < nameB) {
       return handleTrie ? -1 : 1;
@@ -49,21 +42,35 @@ const Table = ({ filteredDataOnSearch }) => {
     return 0;
   };
 
-  const trier = (key) => {
-    // setKey(key);
-    // const sortEmployees = [...employees].sort(compareValues);
-    // dispatch(updateEmployeesList(sortEmployees));
+  const trier = (key, ordreTrie) => {
     if (keyRef.current === key) {
       setHandleTrie(!handleTrie);
     } else {
       setHandleTrie(true);
       keyRef.current = key;
     }
-    const sortEmployees = [...employees].sort(compareValues);
-    dispatch(updateEmployeesList(sortEmployees));
+    filteredEmployees.sort(compareValues);
+    // const sortEmployees = [...employees].sort(compareValues);
+    // dispatch(updateEmployeesList(sortEmployees));
   };
+  const keys = [
+    { label: "First Name", value: "firstName" },
+    { label: "Last Name", value: "lastName" },
+    { label: "Start Date", value: "startDate" },
+    { label: "Department", value: "department" },
+    { label: "BirthDate", value: "birthDate" },
+    { label: "Street", value: "street" },
+    { label: "City", value: "city" },
+    { label: "State", value: "state" },
+    { label: "Zip Code", value: "zipCode" },
+  ];
 
-  const keys = ["firstName", "lastName", "startDate", "department", "birthDate", "street", "city", "state", "zipCode"];
+  // on change le format de date pour l'affichage selon la maquette
+  const formatDate = (value) => {
+    const dateSplit = value.split("-");
+    const newFormat_Date = `${dateSplit[2]}/${dateSplit[1]}/${dateSplit[0]}`;
+    return newFormat_Date;
+  };
 
   return (
     <>
@@ -71,75 +78,19 @@ const Table = ({ filteredDataOnSearch }) => {
         <thead>
           <tr>
             {keys.map((val) => {
-              return <TableHeader val={val} trier={trier} />;
+              return <TableHeader val={val} trier={trier} ordreTrie={false} />;
             })}
           </tr>
-          {/* <tr>
-            <th>
-              <button className="filter_table_button" onClick={() => trier("firstName")}>
-                First Name
-                <RiArrowUpDownLine className="arrows_icon" />
-              </button>
-            </th>
-            <th>
-              <button className="filter_table_button" onClick={() => trier("lastName")}>
-                Last Name
-                <RiArrowUpDownLine className="arrows_icon" />
-              </button>
-            </th>
-            <th>
-              <button className="filter_table_button" onClick={() => trier("startDate")}>
-                Start Date
-                <RiArrowUpDownLine className="arrows_icon" />
-              </button>
-            </th>
-            <th>
-              <button className="filter_table_button" onClick={() => trier("department")}>
-                Department
-                <RiArrowUpDownLine className="arrows_icon" />
-              </button>
-            </th>
-            <th>
-              <button className="filter_table_button" onClick={() => trier("birthDate")}>
-                BirthDate
-                <RiArrowUpDownLine className="arrows_icon" />
-              </button>
-            </th>
-            <th>
-              <button className="filter_table_button" onClick={() => trier("street")}>
-                Street
-                <RiArrowUpDownLine className="arrows_icon" />
-              </button>
-            </th>
-            <th>
-              <button className="filter_table_button" onClick={() => trier("city")}>
-                City
-                <RiArrowUpDownLine className="arrows_icon" />
-              </button>
-            </th>
-            <th>
-              <button className="filter_table_button" onClick={() => trier("state")}>
-                State
-                <RiArrowUpDownLine className="arrows_icon" />
-              </button>
-            </th>
-            <th>
-              <button className="filter_table_button" onClick={() => trier("zipCode")}>
-                Zip Code
-                <RiArrowUpDownLine className="arrows_icon" />
-              </button>
-            </th>
-          </tr> */}
         </thead>
         <tbody>
-          {filteredDataOnSearch.map((val, key) => {
+          {filteredEmployees.map((val, key) => {
             return (
               <tr key={key}>
                 <td>{val.firstName}</td>
                 <td>{val.lastName}</td>
-                <td>{val.startDate}</td>
+                <td>{formatDate(val.startDate)}</td>
                 <td>{val.department}</td>
-                <td>{val.birthDate}</td>
+                <td>{formatDate(val.birthDate)}</td>
                 <td>{val.street}</td>
                 <td>{val.city}</td>
                 <td>{val.state}</td>
