@@ -6,6 +6,7 @@ import EmployeeSlice from "./feature/EmployeeSlice";
 const persistConfig = {
   key: "employees",
   storage,
+  blacklist: ["step"],
 };
 
 const persistedReducer = persistReducer(persistConfig, EmployeeSlice);

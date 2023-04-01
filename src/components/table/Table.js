@@ -51,7 +51,6 @@ const Table = ({ filteredEmployees }) => {
     }
     filteredEmployees.sort(compareValues);
     // const sortEmployees = [...employees].sort(compareValues);
-    // dispatch(updateEmployeesList(sortEmployees));
   };
   const keys = [
     { label: "First Name", value: "firstName" },

@@ -5,21 +5,20 @@ const getEmployees = createAction("data/getEmployees", (data) => ({
     data,
   },
 }));
-const nextStep = createAction("data/nextStep", (step) => ({
+const goToNextStep = createAction("data/goToNextStep", (step) => ({
   payload: {
     step,
   },
 }));
-const prevStep = createAction("data/prevStep", (step) => ({
+const goToPreviousStep = createAction("data/goToPreviousStep", (step) => ({
+  payload: {
+    step,
+  },
+}));
+const goToStep = createAction("data/goToStep", (step) => ({
   payload: {
     step,
   },
 }));
 
-const updateEmployeesList = createAction("data/updateEmployeesList", (data) => ({
-  payload: {
-    data,
-  },
-}));
-
-export { getEmployees, nextStep, prevStep, updateEmployeesList };
+export { getEmployees, goToNextStep, goToPreviousStep, goToStep };
