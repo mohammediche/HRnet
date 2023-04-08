@@ -9,24 +9,23 @@ import SelectEntries from "../../components/selectEntries/SelectEntries";
 import { goToStep } from "../../store/feature/Employee.actions";
 
 const EmployeeList = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredEmployees, setFilteredEmployees] = useState([]);
-
-  const [pageSize, setPageSize] = useState(5); // nombre d'éléments par page
-
-  const employees = useSelector((state) => state.employee);
+  const employees_store = useSelector((state) => state.employee);
   const step = useSelector((state) => state.step);
   const dispatch = useDispatch();
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [employees, setEmployees] = useState([]);
+  const [pageSize, setPageSize] = useState(5); // nombre d'éléments par page
+
   const debut = (step - 1) * pageSize;
   const fin = debut + pageSize;
-  // arrondir le nombre au supérieur
-  const nombrePageArrondi = Math.ceil(employees.length / pageSize);
-  // crée un tableau contenant des nombres de 1 à nombrePageArrondi
-  const tableauDeNombresDePage = Array.from({ length: nombrePageArrondi }, (_, i) => i + 1);
 
   useEffect(() => {
-    const filtered = employees.filter((item) => {
+    setEmployees(employees_store);
+  }, [employees_store]);
+
+  useEffect(() => {
+    const filteredBySearch = employees_store?.filter((item) => {
       // Vérifier si la valeur de recherche correspond à l'une des valeurs de chaque élément du tableau
       /* On filtre le tableau,
        * on utilise Object.values pour récupérer seulement les valeur des objets
@@ -35,13 +34,15 @@ const EmployeeList = () => {
        * Et enfin ca nous return un nouveau tableau **/
       return Object.values(item).some((value) => value.toString().toLowerCase().includes(searchTerm.toLowerCase()));
     });
-    setFilteredEmployees(filtered);
-  }, [employees, searchTerm]);
+    setEmployees(filteredBySearch);
+  }, [employees_store, searchTerm]);
 
+  // select entriees
   useEffect(() => {
-    const sliced = employees.slice(debut, fin);
-    setFilteredEmployees(sliced);
-  }, [step, pageSize]);
+    const employeesSelection = employees_store.slice(debut, fin);
+    //console.log("employeesSelection==>", employeesSelection);
+    // setEmployees(employeesSelection);
+  }, [debut, fin, employees_store]);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -52,7 +53,6 @@ const EmployeeList = () => {
     dispatch(goToStep(1));
   };
 
-  console.log("step actuel", step);
   return (
     <div>
       <header className="title">
@@ -65,8 +65,16 @@ const EmployeeList = () => {
       <main className="container greater_width">
         <SelectEntries handleEntries={handleEntries} />
         <Search handleSearch={handleSearch} />
-        <Table filteredEmployees={filteredEmployees} />
-        <Pagination fin={fin} tableauDeNombresDePage={tableauDeNombresDePage} />
+        <Table employees={employees} />
+        <div className="footer_container">
+          <Pagination fin={fin} pageSize={pageSize} employees={employees} />
+          <div>
+            <p>
+              Showing {debut + 1} to {fin < employees.length ? fin : employees.length} of {employees.length} entries
+            </p>
+            {/* <p>Showing 1 to 3 of 3 entries (filtered from 41 total entries)</p> */}
+          </div>
+        </div>
       </main>
     </div>
   );

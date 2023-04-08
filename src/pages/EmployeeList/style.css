@@ -59,3 +59,9 @@ tr:nth-child(odd) td {
     outline: none;
     box-shadow: 0 3px 8px rgb(184 211 241);
 }
+.footer_container{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    margin-top: 20px;
+}

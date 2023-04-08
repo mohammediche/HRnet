@@ -1,7 +1,7 @@
 import React from "react";
 
 const SelectEntries = ({ handleEntries }) => {
-  const entries = [5, 10, 25, 50, 100, 2];
+  const entries = [5, 10, 25, 50, 100];
   return (
     <div>
       <span>Show</span>

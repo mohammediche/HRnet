@@ -1,22 +1,9 @@
 import React, { useState, useRef } from "react";
 import TableHeader from "./TableHeader";
 
-const Table = ({ filteredEmployees }) => {
+const Table = ({ employees }) => {
   const keyRef = useRef("");
   const [handleTrie, setHandleTrie] = useState(false);
-
-  //const tableSteps = useSelector((state) => state.step);
-  //const pageSize = 10; // nombre d'éléments par page
-
-  // extraire les éléments de la page actuelle
-  // const debut = (tableSteps - 1) * pageSize;
-  // const fin = debut + pageSize;
-  // const employeesAAfficher = employees.slice(debut, fin);
-
-  // crée une fonction qui traite les date (fitre etc...)
-  /*formatDate = ()=>{
-
-  }*/
 
   const compareValues = (a, b) => {
     let nameA;
@@ -49,7 +36,7 @@ const Table = ({ filteredEmployees }) => {
       setHandleTrie(true);
       keyRef.current = key;
     }
-    filteredEmployees.sort(compareValues);
+    employees.sort(compareValues);
     // const sortEmployees = [...employees].sort(compareValues);
   };
   const keys = [
@@ -82,7 +69,7 @@ const Table = ({ filteredEmployees }) => {
           </tr>
         </thead>
         <tbody>
-          {filteredEmployees.map((val, key) => {
+          {employees.map((val, key) => {
             return (
               <tr key={key}>
                 <td>{val.firstName}</td>
