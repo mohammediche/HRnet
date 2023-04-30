@@ -1,0 +1,11 @@
+.prev_next_navigation{
+
+}
+.navigation_numbers{
+    
+}
+.navigation_numbers,
+.prev_next_navigation{
+    padding: 5px 10px;
+    margin: 0 3px;
+}

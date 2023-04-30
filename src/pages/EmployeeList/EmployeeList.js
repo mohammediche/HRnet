@@ -11,6 +11,8 @@ import { goToStep } from "../../store/feature/Employee.actions";
 const EmployeeList = () => {
   const employees_store = useSelector((state) => state.employee);
   const step = useSelector((state) => state.step);
+  //const defaultSize = employees_store.length;
+  const [nombreTotalElementAfficher, setNombreTotalElementAfficher] = useState(employees_store.length);
   const dispatch = useDispatch();
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,14 +36,19 @@ const EmployeeList = () => {
        * Et enfin ca nous return un nouveau tableau **/
       return Object.values(item).some((value) => value.toString().toLowerCase().includes(searchTerm.toLowerCase()));
     });
-    setEmployees(filteredBySearch);
+    //setEmployees(filteredBySearch);
+    console.log("filteredBySearch length=>", filteredBySearch.length);
+    setNombreTotalElementAfficher(filteredBySearch.length);
+    //
+    const employeesSelection = filteredBySearch.slice(debut, fin);
+    setEmployees(employeesSelection);
   }, [employees_store, searchTerm]);
 
   // select entriees
   useEffect(() => {
     const employeesSelection = employees_store.slice(debut, fin);
     //console.log("employeesSelection==>", employeesSelection);
-    // setEmployees(employeesSelection);
+    setEmployees(employeesSelection);
   }, [debut, fin, employees_store]);
 
   const handleSearch = (e) => {
@@ -67,11 +74,16 @@ const EmployeeList = () => {
         <Search handleSearch={handleSearch} />
         <Table employees={employees} />
         <div className="footer_container">
-          <Pagination fin={fin} pageSize={pageSize} employees={employees} />
+          <Pagination fin={fin} pageSize={pageSize} size={nombreTotalElementAfficher} />
           <div>
-            <p>
-              Showing {debut + 1} to {fin < employees.length ? fin : employees.length} of {employees.length} entries
-            </p>
+            {employees.length > 0 ? (
+              <p>
+                Showing {debut + 1} to {fin < employees_store.length ? fin : employees_store.length} of{" "}
+                {employees_store.length} entries
+              </p>
+            ) : (
+              <p>Showing 0 to 0 of 0 entries</p>
+            )}
             {/* <p>Showing 1 to 3 of 3 entries (filtered from 41 total entries)</p> */}
           </div>
         </div>
