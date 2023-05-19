@@ -7,7 +7,7 @@ import { States } from "../../data/States";
 import { Departements } from "../../data/Departements";
 import DatePicker from "../../components/DatePicker";
 import { getEmployees } from "../../store/feature/Employee.actions";
-import Modal from "../../components/Modal";
+import { ModalComponent } from "modal-library-mohammed";
 
 const CreateEmployee = () => {
   const dispatch = useDispatch();
@@ -27,6 +27,10 @@ const CreateEmployee = () => {
     department: "",
   });
   const [handleModal, setHandleModal] = useState(false);
+  const imageUrl = "https://cdn-icons-png.flaticon.com/512/3789/3789820.png";
+  const text = "Employee Created!";
+  const textLink = "View Current Employees";
+  const linkUrl = "/employee-list";
 
   // passer cette fonction en props sur DatePicker et les 2 DropDown avec les states necessaire !!!
   const handleInputChange = (e) => {
@@ -134,7 +138,13 @@ const CreateEmployee = () => {
       </main>
       {handleModal && (
         <div className="container_modal">
-          <Modal closeModal={closeModal} />
+          <ModalComponent
+            closeModal={closeModal}
+            text={text}
+            imageUrl={imageUrl}
+            textLink={textLink}
+            linkUrl={linkUrl}
+          />
         </div>
       )}
       {/* <div id="confirmation" className="modal">Employee Created!</div> */}
