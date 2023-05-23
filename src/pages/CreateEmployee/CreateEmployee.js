@@ -76,21 +76,17 @@ const CreateEmployee = () => {
           <hr className="hr_mini" />
           <div className="form-group">
             <label htmlFor="firstName">First Name :</label>
-            <input type="text" id="firstName" name="firstName" onChange={handleInputChange} />
+            <input required type="text" id="firstName" name="firstName" onChange={handleInputChange} />
           </div>
 
           <div className="form-group">
             <label htmlFor="lastName">Last Name :</label>
-            <input type="text" id="lastName" name="lastName" onChange={handleInputChange} />
+            <input required type="text" id="lastName" name="lastName" onChange={handleInputChange} />
           </div>
 
           <section className="center_div_input">
-            <DatePicker handleInputChange={handleInputChange} />
-
-            <div className="form-group">
-              <label htmlFor="startDate">Start Date</label>
-              <input type="date" id="startDate" name="startDate" onChange={handleInputChange} />
-            </div>
+            <DatePicker handleInputChange={handleInputChange} value={"birthDate"} label={"Date of Birth"} />
+            <DatePicker handleInputChange={handleInputChange} value={"startDate"} label={"Start Date"} />
           </section>
 
           <h3 className="form_titlesH3">Contact information</h3>
@@ -98,18 +94,19 @@ const CreateEmployee = () => {
 
           <div className="form-group">
             <label htmlFor="street">Street</label>
-            <input type="text" id="street" name="street" onChange={handleInputChange} />
+            <input required type="text" id="street" name="street" onChange={handleInputChange} />
           </div>
 
           <div className="form-group">
             <label htmlFor="city">City</label>
-            <input type="text" id="city" name="city" onChange={handleInputChange} />
+            <input required type="text" id="city" name="city" onChange={handleInputChange} />
           </div>
 
           <section className="center_div_input">
             <div className="form-group">
               <label htmlFor="zipCode">Zip Code</label>
               <input
+                required
                 type="number"
                 id="zipCode"
                 name="zipCode"

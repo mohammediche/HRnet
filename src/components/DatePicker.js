@@ -1,10 +1,10 @@
 import React from "react";
 
-const DatePicker = ({ handleInputChange }) => {
+const DatePicker = ({ handleInputChange, value, label }) => {
   return (
     <div className="form-group">
-      <label htmlFor="birthDate">Date of Birth</label>
-      <input type="date" id="birthDate" name="birthDate" onChange={handleInputChange} />
+      <label htmlFor={value}>{label}</label>
+      <input required type="date" id={value} name={value} onChange={handleInputChange} />
     </div>
   );
 };
