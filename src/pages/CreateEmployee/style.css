@@ -49,6 +49,7 @@ textarea:focus {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 }
 /* #zipCode{
 
@@ -152,4 +153,13 @@ textarea:focus {
       .navigate_to_employeeList:hover{
         background-color: #f34d36;
       }
+
+@media screen and (max-width: 800px){
+  .title{
+    margin: 55px 30px;
+  }
+  .container{
+    width: 75%;
+  }
+}
   

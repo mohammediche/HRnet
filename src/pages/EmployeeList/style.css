@@ -65,3 +65,14 @@ tr:nth-child(odd) td {
     flex-direction: row-reverse;
     margin-top: 20px;
 }
+@media screen and (max-width: 800px){
+    .greater_width{
+        width: 90%;
+        overflow: scroll;
+        padding: 20px;
+        border-radius: 20px;
+    }
+    .allContent_data_table{
+        width: 1000px;
+    }
+}

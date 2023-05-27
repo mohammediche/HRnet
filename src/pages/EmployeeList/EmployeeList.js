@@ -68,21 +68,23 @@ const EmployeeList = () => {
         <AiFillHome />
       </a>
       <main className="container greater_width">
-        <SelectEntries handleEntries={handleEntries} />
-        <Search handleSearch={handleSearch} />
-        <Table employees={employees} />
-        <div className="footer_container">
-          <Pagination fin={fin} pageSize={pageSize} size={nombreTotalElementAfficher} />
-          <div>
-            {employees.length > 0 ? (
-              <p>
-                Showing {debut + 1} to {fin < employees_store.length ? fin : employees_store.length} of{" "}
-                {employees_store.length} entries
-              </p>
-            ) : (
-              <p>Showing 0 to 0 of 0 entries</p>
-            )}
-            {/* <p>Showing 1 to 3 of 3 entries (filtered from 41 total entries)</p> */}
+        <div className="allContent_data_table">
+          <SelectEntries handleEntries={handleEntries} />
+          <Search handleSearch={handleSearch} />
+          <Table employees={employees} />
+          <div className="footer_container">
+            <Pagination fin={fin} pageSize={pageSize} size={nombreTotalElementAfficher} />
+            <div>
+              {employees.length > 0 ? (
+                <p>
+                  Showing {debut + 1} to {fin < employees_store.length ? fin : employees_store.length} of{" "}
+                  {employees_store.length} entries
+                </p>
+              ) : (
+                <p>Showing 0 to 0 of 0 entries</p>
+              )}
+              {/* <p>Showing 1 to 3 of 3 entries (filtered from 41 total entries)</p> */}
+            </div>
           </div>
         </div>
       </main>
