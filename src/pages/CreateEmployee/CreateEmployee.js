@@ -53,6 +53,18 @@ const CreateEmployee = () => {
     e.preventDefault();
     dispatch(getEmployees(employeeDetails));
     setHandleModal(true);
+    // Réinitialiser l'objet employeeDetails
+    setEmployeeDetails({
+      firstName: "",
+      lastName: "",
+      birthDate: "",
+      startDate: "",
+      street: "",
+      city: "",
+      state: "",
+      zipCode: 0,
+      department: "",
+    });
   };
   const closeModal = () => {
     setHandleModal(false);
@@ -76,17 +88,41 @@ const CreateEmployee = () => {
           <hr className="hr_mini" />
           <div className="form-group">
             <label htmlFor="firstName">First Name :</label>
-            <input required type="text" id="firstName" name="firstName" onChange={handleInputChange} />
+            <input
+              required
+              type="text"
+              id="firstName"
+              name="firstName"
+              value={employeeDetails.firstName}
+              onChange={handleInputChange}
+            />
           </div>
 
           <div className="form-group">
             <label htmlFor="lastName">Last Name :</label>
-            <input required type="text" id="lastName" name="lastName" onChange={handleInputChange} />
+            <input
+              required
+              type="text"
+              id="lastName"
+              name="lastName"
+              value={employeeDetails.lastName}
+              onChange={handleInputChange}
+            />
           </div>
 
           <section className="center_div_input">
-            <DatePicker handleInputChange={handleInputChange} value={"birthDate"} label={"Date of Birth"} />
-            <DatePicker handleInputChange={handleInputChange} value={"startDate"} label={"Start Date"} />
+            <DatePicker
+              handleInputChange={handleInputChange}
+              id={"birthDate"}
+              value={employeeDetails.birthDate}
+              label={"Date of Birth"}
+            />
+            <DatePicker
+              handleInputChange={handleInputChange}
+              id={"startDate"}
+              value={employeeDetails.startDate}
+              label={"Start Date"}
+            />
           </section>
 
           <h3 className="form_titlesH3">Contact information</h3>
@@ -94,12 +130,26 @@ const CreateEmployee = () => {
 
           <div className="form-group">
             <label htmlFor="street">Street</label>
-            <input required type="text" id="street" name="street" onChange={handleInputChange} />
+            <input
+              required
+              type="text"
+              id="street"
+              name="street"
+              value={employeeDetails.street}
+              onChange={handleInputChange}
+            />
           </div>
 
           <div className="form-group">
             <label htmlFor="city">City</label>
-            <input required type="text" id="city" name="city" onChange={handleInputChange} />
+            <input
+              required
+              type="text"
+              id="city"
+              name="city"
+              value={employeeDetails.city}
+              onChange={handleInputChange}
+            />
           </div>
 
           <section className="center_div_input">
@@ -111,6 +161,7 @@ const CreateEmployee = () => {
                 id="zipCode"
                 name="zipCode"
                 className="field_Style"
+                value={employeeDetails.zipCode}
                 onChange={handleInputChangeNumber}
               />
             </div>

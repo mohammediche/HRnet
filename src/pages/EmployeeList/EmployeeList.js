@@ -37,7 +37,6 @@ const EmployeeList = () => {
       return Object.values(item).some((value) => value.toString().toLowerCase().includes(searchTerm.toLowerCase()));
     });
     //setEmployees(filteredBySearch);
-    console.log("filteredBySearch length=>", filteredBySearch.length);
     setNombreTotalElementAfficher(filteredBySearch.length);
     //
     const employeesSelection = filteredBySearch.slice(debut, fin);
@@ -47,7 +46,6 @@ const EmployeeList = () => {
   // select entriees
   useEffect(() => {
     const employeesSelection = employees_store.slice(debut, fin);
-    //console.log("employeesSelection==>", employeesSelection);
     setEmployees(employeesSelection);
   }, [debut, fin, employees_store]);
 

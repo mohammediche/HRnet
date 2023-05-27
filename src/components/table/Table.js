@@ -13,7 +13,6 @@ const Table = ({ employees }) => {
       nameA = new Date(a[keyRef.current]).getTime();
       nameB = new Date(b[keyRef.current]).getTime();
     } else {
-      // console.log("not");
       nameA = `${a[keyRef.current]}`.toUpperCase();
       nameB = `${b[keyRef.current]}`.toUpperCase();
     }
@@ -63,8 +62,8 @@ const Table = ({ employees }) => {
       <table className="table">
         <thead>
           <tr>
-            {keys.map((val) => {
-              return <TableHeader val={val} trier={trier} ordreTrie={false} />;
+            {keys.map((val, key) => {
+              return <TableHeader keyVal={key} val={val} trier={trier} ordreTrie={false} />;
             })}
           </tr>
         </thead>

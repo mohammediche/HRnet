@@ -5,7 +5,6 @@ import { goToNextStep, goToPreviousStep, goToStep } from "../../store/feature/Em
 
 function Pagination({ fin, pageSize, size }) {
   const dispatch = useDispatch();
-  const employees_store = useSelector((state) => state.employee);
   const step = useSelector((state) => state.step);
   const [tableauDeNombresDePage, setTableauDeNombresDePage] = useState([]);
 
@@ -22,7 +21,6 @@ function Pagination({ fin, pageSize, size }) {
     const nombrePageArrondi = Math.ceil(size / pageSize);
     // crée un tableau contenant des nombres de 1 à nombrePageArrondi
     const tableauDeNombresDePage = Array.from({ length: nombrePageArrondi }, (_, i) => i + 1);
-    console.log("nombrePageArrondi=>", nombrePageArrondi);
     setTableauDeNombresDePage(tableauDeNombresDePage);
   }, [size, pageSize]);
 
